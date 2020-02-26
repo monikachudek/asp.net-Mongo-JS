@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MongoBooksApi.Models;
+using MongoBooksApi.Services;
 
 namespace MongoBooksApi
 {
@@ -32,6 +33,8 @@ namespace MongoBooksApi
 
             services.AddSingleton<IBookstoreDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<BookstoreDatabaseSettings>>().Value);
+
+            services.AddSingleton<BookService>();
 
             services.AddControllers();
         }
