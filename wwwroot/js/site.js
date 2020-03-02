@@ -9,11 +9,17 @@ function getItems() {
 }
 
 function addItem() {
+
     const addNameTextbox = document.getElementById('add-name');
+    const addPriceTextbox = document.getElementById('add-price');
+    const addCategoryTextbox = document.getElementById('add-category');
+    const addAuthorTextbox = document.getElementById('add-author');
 
     const item = {
-        isComplete: false,
-        name: addNameTextbox.value.trim()
+        Name: addNameTextbox.value.trim(),
+        Price: addPriceTextbox.value.trim(),
+        Category: addCategoryTextbox.value.trim(),
+        Author: addAuthorTextbox.value.trim(),
     };
 
     fetch(uri, {
