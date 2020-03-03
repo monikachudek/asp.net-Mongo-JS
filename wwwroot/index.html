@@ -7,43 +7,54 @@
 </head>
 <body>
     <h2>Books CRUD</h2>
-    <h3>Add</h3>
-    <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
-        <label for="add-name">Name:</label><br />
-        <input type="text" id="add-name" placeholder="Name"><br>
-        <label for="add-price">Price:</label><br />
-        <input type="text" id="add-price" placeholder="$"><br>
-        <label for="add-category">Category:</label><br />
-        <input type="text" id="add-category" placeholder="Category"><br>
-        <label for="add-author">Author:</label><br />
-        <input type="text" id="add-author" placeholder="Author"><br><br />
-        <input type="submit" value="Add">
-    </form>
-
-    <div id="editForm">
-        <h3>Edit</h3>
-        <form action="javascript:void(0);" onsubmit="updateItem()">
-            <input type="hidden" id="edit-id">
-            <input type="checkbox" id="edit-isComplete">
-            <input type="text" id="edit-name">
-            <input type="submit" value="Save">
-            <a onclick="closeInput()" aria-label="Close">&#10006;</a>
+    <div id="addForm" style="display:none;">
+        <h3>Add</h3>
+        <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
+            <label for="add-name">Name:</label><br />
+            <input type="text" id="add-name" placeholder="Name"><br>
+            <label for="add-price">Price:</label><br />
+            <input type="text" id="add-price" placeholder="$"><br>
+            <label for="add-category">Category:</label><br />
+            <input type="text" id="add-category" placeholder="Category"><br>
+            <label for="add-author">Author:</label><br />
+            <input type="text" id="add-author" placeholder="Author"><br><br />
+            <input type="submit" value="Add">
+            <a onclick="closeInput('addForm')" aria-label="Close">&#10006;</a>
         </form>
     </div>
 
-    <p id="counter"></p>
+    <div id="editForm" style="display:none;">
+        <h3>Edit</h3>
+        <form action="javascript:void(0);" onsubmit="updateItem()">
+            <input type="hidden" id="edit-id">
+            <label for="edit-name">Name:</label><br />
+            <input type="text" id="edit-name" placeholder="Name"><br>
+            <label for="edit-price">Price:</label><br />
+            <input type="text" id="edit-price" placeholder="$"><br>
+            <label for="edit-category">Category:</label><br />
+            <input type="text" id="edit-category" placeholder="Category"><br>
+            <label for="edit-author">Author:</label><br />
+            <input type="text" id="edit-author" placeholder="Author"><br><br />
+            <input type="submit" value="Save">
+            <a onclick="closeInput('editForm')" aria-label="Close">&#10006;</a>
+        </form>
+    </div><br />
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Author</th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tbody id="books"></tbody>
-    </table>
+    <div>
+        <a id="counter"></a>
+        <button id ="add-button" onclick="showAddForm()">Add</button>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Author</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tbody id="books"></tbody>
+        </table>
+    </div>
 
     <script src="js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">

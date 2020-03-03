@@ -36,6 +36,8 @@ function addItem() {
             addNameTextbox.value = '';
         })
         .catch(error => console.error('Unable to add item.', error));
+
+    closeInput('addForm');
 }
 
 function deleteItem(id) {
@@ -47,20 +49,27 @@ function deleteItem(id) {
 }
 
 function displayEditForm(id) {
-    const item = todos.find(item => item.id === id);
+    const item = books.find(item => item.Id === id);
+    document.getElementById('add-button').style.display = 'block';
 
-    document.getElementById('edit-name').value = item.name;
-    document.getElementById('edit-id').value = item.id;
-    document.getElementById('edit-isComplete').checked = item.isComplete;
+    document.getElementById('edit-id').value = item.Id;
+    document.getElementById('edit-name').value = item.Name;
+    document.getElementById('edit-price').value = item.Price;
+    document.getElementById('edit-category').value = item.Category;
+    document.getElementById('edit-author').value = item.Author;
+
     document.getElementById('editForm').style.display = 'block';
+    document.getElementById('addForm').style.display = 'none';
 }
 
 function updateItem() {
     const itemId = document.getElementById('edit-id').value;
     const item = {
-        id: parseInt(itemId, 10),
-        isComplete: document.getElementById('edit-isComplete').checked,
-        name: document.getElementById('edit-name').value.trim()
+        Id: itemId,
+        Name: document.getElementById('edit-name').value.trim(),
+        Price: document.getElementById('edit-price').value.trim(),
+        Category: document.getElementById('edit-category').value.trim(),
+        Author: document.getElementById('edit-author').value.trim()
     };
 
     fetch(`${uri}/${itemId}`, {
@@ -74,17 +83,24 @@ function updateItem() {
         .then(() => getItems())
         .catch(error => console.error('Unable to update item.', error));
 
-    closeInput();
+    closeInput('editForm');
 
     return false;
 }
 
-function closeInput() {
+function showAddForm() {
+    document.getElementById('addForm').style.display = 'block';
     document.getElementById('editForm').style.display = 'none';
+    document.getElementById('add-button').style.display = 'none';
+}
+
+function closeInput(name) {
+    document.getElementById(name).style.display = 'none';
+    document.getElementById('add-button').style.display = 'block';
 }
 
 function _displayCount(itemCount) {
-    const name = (itemCount === 1) ? 'to-do' : 'to-dos';
+    const name = (itemCount === 1) ? 'book' : 'books';
 
     document.getElementById('counter').innerText = `${itemCount} ${name}`;
 }
@@ -93,7 +109,7 @@ function _displayItems(data) {
     const tBody = document.getElementById('books');
     tBody.innerHTML = '';
 
-    //_displayCount(data.length);
+    _displayCount(data.length);
 
     const button = document.createElement('button');
 
@@ -101,11 +117,11 @@ function _displayItems(data) {
 
         let editButton = button.cloneNode(false);
         editButton.innerText = 'Edit';
-        editButton.setAttribute('onclick', `displayEditForm(${item.id})`);
+        editButton.setAttribute('onclick', `displayEditForm('${item.Id}')`);
 
         let deleteButton = button.cloneNode(false);
         deleteButton.innerText = 'Delete';
-        deleteButton.setAttribute('onclick', `deleteItem(${item.id})`);
+        deleteButton.setAttribute('onclick', `deleteItem('${item.Id}')`);
 
         let tr = tBody.insertRow();
 
